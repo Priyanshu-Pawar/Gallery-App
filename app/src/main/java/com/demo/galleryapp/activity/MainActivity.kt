@@ -1,4 +1,4 @@
-package com.demo.galleryapp
+package com.demo.galleryapp.activity
 
 import android.Manifest
 import android.app.AlertDialog
@@ -8,7 +8,6 @@ import android.net.Uri
 import android.os.Build
 import android.os.Bundle
 import android.provider.Settings
-import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
 import android.widget.Toast
@@ -16,15 +15,21 @@ import androidx.activity.result.contract.ActivityResultContracts
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.viewpager.widget.ViewPager
+import com.demo.galleryapp.R
 import com.demo.galleryapp.adapters.ViewPagerAdapter
+import com.demo.galleryapp.fragments.FolderFragment
+import com.demo.galleryapp.fragments.GalleryFragment
 import com.google.android.material.tabs.TabLayout
 import java.util.concurrent.ExecutorService
+import java.util.concurrent.Executors
 
 class MainActivity : AppCompatActivity() {
     private lateinit var tabLayout: TabLayout
     private lateinit var viewPager: ViewPager
-    private lateinit var fragment: GalleryFragment
+    private lateinit var galleryFragment: GalleryFragment
+    private lateinit var folderFragment: FolderFragment
     private lateinit var progressBar: ProgressBar
+    private lateinit var service: ExecutorService
 
 
     private val requestPermissionLauncher =
@@ -48,10 +53,16 @@ class MainActivity : AppCompatActivity() {
 
         progressBar.visibility = View.VISIBLE
 
-        if (permissionCheck()) {
-            loadData()
-        } else {
-            askForPermission()
+
+        service = Executors.newSingleThreadExecutor()
+
+        progressBar.visibility = View.VISIBLE
+        service.execute {
+            if (permissionCheck()) {
+                loadData()
+            } else {
+                askForPermission()
+            }
         }
 
     }
@@ -60,10 +71,15 @@ class MainActivity : AppCompatActivity() {
     private fun loadData() {
 
         progressBar.visibility = View.GONE
-        fragment = GalleryFragment.newInstance(0)
+
+        galleryFragment = GalleryFragment.newInstance(0)
+        folderFragment = FolderFragment.newInstance(1)
+
         val adapter = ViewPagerAdapter(supportFragmentManager)
-        adapter.addFragment(fragment)
-        adapter.addFragment(GalleryFragment.newInstance(1))
+
+        adapter.addFragment(galleryFragment)
+        adapter.addFragment(folderFragment)
+
         viewPager.adapter = adapter
         tabLayout.setupWithViewPager(viewPager)
 

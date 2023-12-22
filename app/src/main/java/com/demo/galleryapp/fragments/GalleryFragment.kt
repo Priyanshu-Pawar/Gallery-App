@@ -1,4 +1,4 @@
-package com.demo.galleryapp
+package com.demo.galleryapp.fragments
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -9,16 +9,14 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.GridLayoutManager
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.demo.galleryapp.adapters.FolderAdapter
+import com.demo.galleryapp.MainViewModel
+import com.demo.galleryapp.MainViewModelFactory
+import com.demo.galleryapp.R
 import com.demo.galleryapp.adapters.ImagesAdapter
-import com.demo.galleryapp.models.Folder
-import com.demo.galleryapp.models.Model
-import java.io.File
 
 class GalleryFragment : Fragment() {
     private lateinit var recyclerView: RecyclerView
     private lateinit var imagesAdapter: ImagesAdapter
-    private lateinit var folderAdapter: FolderAdapter
     private var position: Int = 0
     private lateinit var mainViewModel: MainViewModel
 
@@ -49,25 +47,20 @@ class GalleryFragment : Fragment() {
         )[MainViewModel::class.java]
 
 //        val pictureList = loadAllImages(requireContext())
-        val pictureList = mainViewModel.getImages()
+
+//        val pictureList = mainViewModel.getImages()
         arguments?.let {
             position = it.getInt(ARG_POSITION, 0)
         }
-        if (position == 0) {
-            recyclerView.layoutManager =
-                GridLayoutManager(requireContext(), 3, LinearLayoutManager.VERTICAL, false)
-            imagesAdapter = ImagesAdapter(requireContext(), pictureList)
-            recyclerView.adapter = imagesAdapter
-        } else {
 
-            val folders: List<Folder> =
-                pictureList.groupBy { File(it.name).parent }.map { (path, models) ->
-                    Folder(path!!, models as ArrayList<Model>)
-                }
-            recyclerView.layoutManager =
-                GridLayoutManager(requireContext(), 3, LinearLayoutManager.VERTICAL, false)
-            folderAdapter = FolderAdapter(requireContext(), folders)
-            recyclerView.adapter = folderAdapter
+
+        mainViewModel.gData.observe(viewLifecycleOwner){
+            if (position == 0) {
+                recyclerView.layoutManager =
+                    GridLayoutManager(requireContext(), 4, LinearLayoutManager.VERTICAL, false)
+                imagesAdapter = ImagesAdapter(requireContext(), it)
+                recyclerView.adapter = imagesAdapter
+            }
         }
         return view
     }

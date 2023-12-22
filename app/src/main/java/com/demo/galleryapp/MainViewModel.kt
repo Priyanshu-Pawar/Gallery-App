@@ -2,28 +2,34 @@ package com.demo.galleryapp
 
 import android.app.Application
 import android.content.Context
-import android.os.Build
 import android.provider.MediaStore
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
+import androidx.lifecycle.MutableLiveData
 import com.demo.galleryapp.models.Model
 
 class MainViewModel(application: Application) : AndroidViewModel(application) {
 
+    private var _gData: MutableLiveData<List<Model>> = MutableLiveData()
+    val gData: LiveData<List<Model>> get() = _gData
 
-    private fun loadImages(): ArrayList<Model> {
+    init {
+        loadImages()
+    }
+
+    private fun loadImages() {
         val context: Context = getApplication()
         val tempList = ArrayList<Model>()
-
-        val uri = when {
-            Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q -> {
-                MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY)
-//                MediaStore.Files.getContentUri("external")
-            }
-
-            else -> {
-                MediaStore.Images.Media.EXTERNAL_CONTENT_URI
-            }
-        }
+        //         val uri = when {
+//            Build.VERSION.SDK_INT >= Build.VERSION_CODES.Q -> {
+//                MediaStore.Images.Media.getContentUri(MediaStore.VOLUME_EXTERNAL_PRIMARY)
+//              MediaStore.Files.getContentUri("external")
+//            }
+//
+//            else -> {
+//                MediaStore.Images.Media.EXTERNAL_CONTENT_URI
+//            }
+//        }
 
         val projection = arrayOf(
             MediaStore.Images.Media._ID,
@@ -32,7 +38,7 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
         )
 
         context.contentResolver.query(
-            uri, projection, null, null, null
+            MediaStore.Images.Media.EXTERNAL_CONTENT_URI, projection, null, null, null
         )?.use { cursor ->
             cursor.let {
                 while (cursor.moveToNext()) {
@@ -51,11 +57,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             }
         }
 
-        return tempList
+        _gData.postValue(tempList)
     }
 
-    fun getImages(): ArrayList<Model> {
-        return loadImages()
-    }
 
 }

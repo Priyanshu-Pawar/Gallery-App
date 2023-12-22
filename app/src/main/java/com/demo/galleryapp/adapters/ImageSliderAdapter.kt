@@ -2,14 +2,12 @@ package com.demo.galleryapp.adapters
 
 import android.content.Context
 import android.graphics.drawable.Drawable
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.viewpager.widget.PagerAdapter
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
-import com.bumptech.glide.load.engine.DiskCacheStrategy
 import com.bumptech.glide.load.engine.GlideException
 import com.bumptech.glide.request.RequestListener
 import com.bumptech.glide.request.target.Target
@@ -27,7 +25,7 @@ class ImageSliderAdapter(private val context: Context, private val modelList: Ar
     override fun instantiateItem(container: ViewGroup, position: Int): Any {
 
         currentPosition = position
-        val view = LayoutInflater.from(context).inflate(R.layout.open_image, container, false)
+        val view = LayoutInflater.from(context).inflate(R.layout.activity_open_one_image, container, false)
 
         imageViewForSlider = view.findViewById(R.id.imageView)
 
@@ -40,7 +38,6 @@ class ImageSliderAdapter(private val context: Context, private val modelList: Ar
                     target: Target<Drawable?>?,
                     isFirstResource: Boolean
                 ): Boolean {
-                    Log.e("onResourceReady", "Glide load failed: FFFFFFFFFFFFFF$e")
                     return false
                 }
 
@@ -51,8 +48,6 @@ class ImageSliderAdapter(private val context: Context, private val modelList: Ar
                     dataSource: DataSource?,
                     isFirstResource: Boolean
                 ): Boolean {
-                    Log.e("onResourceReady", "GlideSSSSSSSSSSSSSSSSSSSSSS")
-
                     return false
                 }
             }).into(imageViewForSlider)
