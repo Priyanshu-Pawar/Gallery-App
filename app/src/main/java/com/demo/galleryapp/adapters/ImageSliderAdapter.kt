@@ -15,7 +15,7 @@ import com.demo.galleryapp.R
 import com.demo.galleryapp.models.Model
 import com.github.chrisbanes.photoview.PhotoView
 
-class ImageSliderAdapter(private val context: Context, private val modelList: ArrayList<Model>) :
+class ImageSliderAdapter(private val context: Context, private var modelList: ArrayList<Model>) :
     PagerAdapter() {
 
     private lateinit var imageViewForSlider: PhotoView
@@ -56,6 +56,18 @@ class ImageSliderAdapter(private val context: Context, private val modelList: Ar
         return view
 
     }
+
+
+    fun setData(arrayList: ArrayList<Model>){
+        this.modelList = arrayList
+        notifyDataSetChanged()
+    }
+
+    fun remove(position: Int){
+        modelList.removeAt(position)
+        notifyDataSetChanged()
+    }
+
 
     override fun getCount(): Int {
         return modelList.size

@@ -12,6 +12,7 @@
     <uses-permission android:name="android.permission.READ_MEDIA_IMAGES" />
 
     <application
+        android:name=".AppClass"
         android:allowBackup="true"
         android:dataExtractionRules="@xml/data_extraction_rules"
         android:fullBackupContent="@xml/backup_rules"
@@ -27,9 +28,7 @@
         <activity
             android:name=".activity.FolderImagesActivity"
             android:exported="false" />
-        <activity
-            android:name=".OpenOneImageActivity"
-            android:exported="false" />
+
         <activity
             android:name=".activity.SplashScreenActivity"
             android:exported="true">

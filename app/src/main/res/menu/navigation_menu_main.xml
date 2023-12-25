@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+
+    <item android:title="@string/features_tools">
+        <menu>
+
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/favorites_item"
+                    android:icon="@drawable/heart_line"
+                    android:title="@string/favorites" />
+
+                <item
+                    android:id="@+id/secure_item"
+                    android:icon="@drawable/lock"
+                    android:title="@string/secure_lock" />
+
+                <item
+                    android:id="@+id/trash_item"
+                    android:icon="@drawable/delete_bin"
+                    android:title="@string/trash_bin" />
+
+                <item
+                    android:id="@+id/language_item"
+                    android:icon="@drawable/global_line"
+                    android:title="@string/change_language" />
+            </group>
+
+        </menu>
+    </item>
+
+
+    <item android:title="@string/other_tools">
+
+        <menu>
+            <group android:checkableBehavior="single">
+                <item
+                    android:id="@+id/privacy_item"
+                    android:icon="@drawable/shield_check_fill"
+                    android:title="@string/privacy_policy" />
+
+                <item
+                    android:id="@+id/rate_item"
+                    android:icon="@drawable/star_fill"
+                    android:title="@string/rate_us" />
+
+                <item
+                    android:id="@+id/share_item"
+                    android:icon="@drawable/share_line"
+                    android:title="@string/share_app" />
+            </group>
+        </menu>
+    </item>
+
+
+</menu>

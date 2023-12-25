@@ -3,6 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:fitsSystemWindows="true"
     tools:context=".activity.FolderImagesActivity">
 
 
@@ -29,7 +30,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginStart="14dp"
                 android:layout_marginTop="22dp"
-                android:text="fgdfgfg"
                 android:fontFamily="@font/montserrat_semibold"
                 android:textColor="@color/black"
                 android:textSize="18sp" />

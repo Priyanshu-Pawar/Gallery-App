@@ -3,26 +3,26 @@
 
 
     <item
-        android:visible="true"
-        android:id="@+id/homeItem"
-        android:title="Share"
-        android:icon="@drawable/share_line"/>
+        android:id="@+id/shareItem"
+        android:icon="@drawable/share_line"
+        android:title="@string/share"
+        android:visible="true" />
 
     <item
-        android:visible="true"
-        android:id="@+id/searchItem"
+        android:id="@+id/hideItem"
         android:icon="@drawable/lock"
-        android:title="Hide" />
+        android:title="@string/hide"
+        android:visible="true" />
 
     <item
-        android:visible="true"
-        android:id="@+id/profileItem"
-        android:title="Delete"
-        android:icon="@drawable/delete_bin"/>
+        android:id="@+id/deleteItem"
+        android:icon="@drawable/delete_bin"
+        android:title="@string/delete"
+        android:visible="true" />
 
     <item
-        android:visible="true"
-        android:title="More"
-        android:id="@+id/contactItem"
-        android:icon="@drawable/more_fill"/>
+        android:id="@+id/moreItem"
+        android:icon="@drawable/more_fill"
+        android:title="@string/more"
+        android:visible="true" />
 </menu>
